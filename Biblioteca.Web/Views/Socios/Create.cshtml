@@ -1,3 +1,32 @@
 @model Socio
 @{ ViewData["Title"] = "Nuevo socio"; }
-<h1>Nuevo socio</h1><form asp-action="Create" method="post" class="form-card"><div asp-validation-summary="ModelOnly" class="text-danger"></div><div class="mb-3"><label asp-for="DNI" class="form-label"></label><input asp-for="DNI" class="form-control" /><span asp-validation-for="DNI" class="text-danger"></span></div><div class="mb-3"><label asp-for="Nombre" class="form-label"></label><input asp-for="Nombre" class="form-control" /><span asp-validation-for="Nombre" class="text-danger"></span></div><div class="mb-3"><label asp-for="Email" class="form-label"></label><input asp-for="Email" class="form-control" /><span asp-validation-for="Email" class="text-danger"></span></div><button class="btn btn-primary">Guardar</button> <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a></form>
+
+<div class="page-header">
+    <div class="page-header-copy">
+        <p class="eyebrow">Comunidad</p>
+        <h1>Nuevo socio</h1>
+        <p class="page-description">Registra una persona para habilitarla en el sistema de préstamos.</p>
+    </div>
+</div>
+<form asp-action="Create" method="post" class="panel form-card">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="DNI" class="form-label"></label>
+        <input asp-for="DNI" class="form-control" placeholder="Ej. 74010001" />
+        <span asp-validation-for="DNI" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label"></label>
+        <input asp-for="Nombre" class="form-control" placeholder="Nombre completo" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" placeholder="nombre@correo.com" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="button-row">
+        <button class="btn btn-primary" type="submit">Guardar socio</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+    </div>
+</form>

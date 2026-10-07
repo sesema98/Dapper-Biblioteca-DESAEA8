@@ -1,3 +1,17 @@
 @model Libro
 @{ ViewData["Title"] = "Nuevo libro"; }
-<h1>Nuevo libro</h1><form asp-action="Create" method="post" class="form-card"><partial name="_Form" model="Model" /><button class="btn btn-primary">Guardar</button> <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a></form>
+
+<div class="page-header">
+    <div class="page-header-copy">
+        <p class="eyebrow">Catálogo</p>
+        <h1>Nuevo libro</h1>
+        <p class="page-description">Completa los datos para agregar un título al catálogo.</p>
+    </div>
+</div>
+<form asp-action="Create" method="post" class="panel form-card">
+    <partial name="_Form" model="Model" />
+    <div class="button-row">
+        <button class="btn btn-primary" type="submit">Guardar libro</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+    </div>
+</form>

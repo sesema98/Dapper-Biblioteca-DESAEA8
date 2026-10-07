@@ -1,3 +1,22 @@
 @model Libro
 @{ ViewData["Title"] = "Detalle del libro"; }
-<h1>Detalle del libro</h1><dl class="row form-card"><dt class="col-sm-3">Título</dt><dd class="col-sm-9">@Model.Titulo</dd><dt class="col-sm-3">ISBN</dt><dd class="col-sm-9">@Model.ISBN</dd><dt class="col-sm-3">Autor</dt><dd class="col-sm-9">@Model.AutorNombre</dd><dt class="col-sm-3">Ejemplares</dt><dd class="col-sm-9">@Model.Ejemplares</dd></dl><a asp-action="Edit" asp-route-id="@Model.LibroId" class="btn btn-primary">Editar</a> <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+
+<div class="page-header">
+    <div class="page-header-copy">
+        <p class="eyebrow">Catálogo</p>
+        <h1>Detalle del libro</h1>
+        <p class="page-description">Información registrada para este título.</p>
+    </div>
+</div>
+<div class="panel form-card">
+    <dl class="detail-list">
+        <div class="detail-row"><dt class="detail-label">Título</dt><dd class="detail-value">@Model.Titulo</dd></div>
+        <div class="detail-row"><dt class="detail-label">ISBN</dt><dd class="detail-value">@Model.ISBN</dd></div>
+        <div class="detail-row"><dt class="detail-label">Autor</dt><dd class="detail-value">@Model.AutorNombre</dd></div>
+        <div class="detail-row"><dt class="detail-label">Ejemplares disponibles</dt><dd class="detail-value"><span class="number-badge">@Model.Ejemplares</span></dd></div>
+    </dl>
+    <div class="button-row">
+        <a asp-action="Edit" asp-route-id="@Model.LibroId" class="btn btn-primary">Editar libro</a>
+        <a asp-action="Index" class="btn btn-outline-secondary">Volver al catálogo</a>
+    </div>
+</div>

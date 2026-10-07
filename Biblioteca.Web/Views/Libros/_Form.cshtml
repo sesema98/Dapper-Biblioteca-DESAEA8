@@ -1,6 +1,26 @@
 @model Libro
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<div class="mb-3"><label asp-for="Titulo" class="form-label"></label><input asp-for="Titulo" class="form-control" /><span asp-validation-for="Titulo" class="text-danger"></span></div>
-<div class="mb-3"><label asp-for="ISBN" class="form-label"></label><input asp-for="ISBN" class="form-control" /><span asp-validation-for="ISBN" class="text-danger"></span></div>
-<div class="mb-3"><label asp-for="AutorId" class="form-label"></label><select asp-for="AutorId" asp-items="@(ViewData["Autores"] as IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>)" class="form-select"><option value="0">Seleccione un autor</option></select><span asp-validation-for="AutorId" class="text-danger"></span></div>
-<div class="mb-3"><label asp-for="Ejemplares" class="form-label"></label><input asp-for="Ejemplares" class="form-control" /><span asp-validation-for="Ejemplares" class="text-danger"></span></div>
+<div class="mb-3">
+    <label asp-for="Titulo" class="form-label"></label>
+    <input asp-for="Titulo" class="form-control" placeholder="Ej. Cien años de soledad" />
+    <span asp-validation-for="Titulo" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="ISBN" class="form-label"></label>
+    <input asp-for="ISBN" class="form-control" placeholder="Ej. 9780307474728" />
+    <span class="field-help">Identificador único del libro.</span>
+    <span asp-validation-for="ISBN" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="AutorId" class="form-label"></label>
+    <select asp-for="AutorId" asp-items="@(ViewData["Autores"] as IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>)" class="form-select">
+        <option value="0">Seleccione un autor</option>
+    </select>
+    <span asp-validation-for="AutorId" class="text-danger"></span>
+</div>
+<div>
+    <label asp-for="Ejemplares" class="form-label"></label>
+    <input asp-for="Ejemplares" class="form-control" min="0" />
+    <span class="field-help">Cantidad disponible para préstamo.</span>
+    <span asp-validation-for="Ejemplares" class="text-danger"></span>
+</div>

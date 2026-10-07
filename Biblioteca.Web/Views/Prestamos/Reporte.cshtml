@@ -1,5 +1,49 @@
 @model IEnumerable<PrestamoReporte>
 @{ ViewData["Title"] = "Reporte de préstamos"; }
-<h1>Reporte de préstamos</h1>
-<form method="get" class="row g-3 align-items-end mb-4"><div asp-validation-summary="ModelOnly" class="text-danger"></div><div class="col-sm-4"><label for="desde" class="form-label">Desde</label><input id="desde" name="desde" type="date" value="@ViewData["Desde"]" class="form-control" /></div><div class="col-sm-4"><label for="hasta" class="form-label">Hasta</label><input id="hasta" name="hasta" type="date" value="@ViewData["Hasta"]" class="form-control" /></div><div class="col-sm-4"><button class="btn btn-primary">Consultar</button></div></form>
-<div class="table-responsive"><table class="table table-striped"><thead><tr><th>Préstamo</th><th>Socio</th><th>Libros</th><th>Fecha</th><th>Fecha límite</th><th>Estado</th></tr></thead><tbody>@if (!Model.Any()) { <tr><td colspan="6" class="text-center text-muted">No hay préstamos en el rango seleccionado.</td></tr> } @foreach (var item in Model) { <tr><td>@item.PrestamoId</td><td>@item.Socio</td><td>@item.Libros</td><td>@item.FechaPrestamo.ToString("dd/MM/yyyy")</td><td>@item.FechaLimite.ToString("dd/MM/yyyy")</td><td>@item.Estado</td></tr> }</tbody></table></div>
+
+<div class="page-header">
+    <div class="page-header-copy">
+        <p class="eyebrow">Seguimiento</p>
+        <h1>Reporte de préstamos</h1>
+        <p class="page-description">Consulta los préstamos realizados dentro de un intervalo de fechas.</p>
+    </div>
+</div>
+
+<form method="get" class="panel toolbar">
+    <div class="flex-grow-1">
+        <label for="desde" class="form-label">Desde</label>
+        <input id="desde" name="desde" type="date" value="@ViewData["Desde"]" class="form-control" />
+    </div>
+    <div class="flex-grow-1">
+        <label for="hasta" class="form-label">Hasta</label>
+        <input id="hasta" name="hasta" type="date" value="@ViewData["Hasta"]" class="form-control" />
+    </div>
+    <button class="btn btn-primary align-self-end" type="submit">Consultar reporte</button>
+</form>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="panel table-panel">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead><tr><th>N.º</th><th>Socio</th><th>Libros</th><th>Fecha</th><th>Fecha límite</th><th>Estado</th></tr></thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="6" class="empty-state">No hay préstamos en el rango seleccionado.</td></tr>
+                }
+                @foreach (var item in Model)
+                {
+                    var pendiente = item.Estado.Equals("Pendiente", StringComparison.OrdinalIgnoreCase);
+                    <tr>
+                        <td class="secondary-cell">#@item.PrestamoId</td>
+                        <td class="primary-cell">@item.Socio</td>
+                        <td>@item.Libros</td>
+                        <td class="text-nowrap">@item.FechaPrestamo.ToString("dd/MM/yyyy")</td>
+                        <td class="text-nowrap">@item.FechaLimite.ToString("dd/MM/yyyy")</td>
+                        <td><span class="status-badge @(pendiente ? "pending" : "")">@item.Estado</span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

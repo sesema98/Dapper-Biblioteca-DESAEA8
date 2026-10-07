@@ -18,6 +18,7 @@ public class Socio
     [StringLength(180)]
     [EmailAddress(ErrorMessage = "Ingrese un correo válido.")]
     [DataType(DataType.EmailAddress)]
+    [Display(Name = "Correo electrónico")]
     public string Email { get; set; } = string.Empty;
 
     public bool Activo { get; set; }

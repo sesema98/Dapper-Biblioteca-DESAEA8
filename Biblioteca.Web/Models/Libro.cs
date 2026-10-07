@@ -8,6 +8,7 @@ public class Libro
 
     [Required(ErrorMessage = "El título es obligatorio.")]
     [StringLength(180, ErrorMessage = "El título admite hasta 180 caracteres.")]
+    [Display(Name = "Título")]
     public string Titulo { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "El ISBN es obligatorio.")]
