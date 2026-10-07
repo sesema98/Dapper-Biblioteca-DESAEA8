@@ -1,0 +1,2 @@
+@model Libro
+<tr><td>@Model.Titulo</td><td>@Model.ISBN</td><td>@Model.AutorNombre</td><td>@Model.Ejemplares</td><td class="text-end text-nowrap"><a asp-action="Details" asp-route-id="@Model.LibroId" class="btn btn-sm btn-outline-secondary">Detalle</a> <a asp-action="Edit" asp-route-id="@Model.LibroId" class="btn btn-sm btn-outline-primary">Editar</a> <a asp-action="Delete" asp-route-id="@Model.LibroId" class="btn btn-sm btn-outline-danger">Eliminar</a></td></tr>

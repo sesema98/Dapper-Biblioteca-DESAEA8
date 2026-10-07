@@ -1,0 +1,3 @@
+@model Libro
+@{ ViewData["Title"] = "Nuevo libro"; }
+<h1>Nuevo libro</h1><form asp-action="Create" method="post" class="form-card"><partial name="_Form" model="Model" /><button class="btn btn-primary">Guardar</button> <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a></form>
