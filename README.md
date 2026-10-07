@@ -43,6 +43,10 @@ docker info
 
 ## Ejecución en macOS
 
+La primera ejecución tarda más porque Docker debe descargar la imagen de SQL Server, de aproximadamente 600 MB comprimida y varios GB una vez instalada. El tiempo depende de la conexión y normalmente ocurre una sola vez. En las siguientes ejecuciones Docker reutiliza la imagen y el volumen existentes, por lo que el inicio suele tardar solamente unos segundos.
+
+El equipo debe tener al menos 10 GB libres para que Docker pueda descargar, descomprimir y ejecutar SQL Server sin errores.
+
 ### 1. Abrir Docker Desktop
 
 Inicia Docker Desktop y espera hasta que el motor de Docker esté listo. Si no está abierto, `docker compose` mostrará un error indicando que no puede conectarse al Docker daemon.
@@ -83,6 +87,71 @@ dotnet run --project Biblioteca.Web --launch-profile http
 ```
 
 Después abre [http://localhost:5231](http://localhost:5231). Para detener la aplicación presiona `Ctrl+C`.
+
+## Ejecución en Windows
+
+En Windows no es obligatorio usar Docker. Se puede ejecutar `BibliotecaDB` con SQL Server LocalDB, SQL Server Express o una instalación completa de SQL Server.
+
+### 1. Instalar los requisitos
+
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
+- [SQL Server Express](https://www.microsoft.com/sql-server/sql-server-downloads) con LocalDB.
+- [SQL Server Management Studio](https://learn.microsoft.com/sql/ssms/install/install) para ejecutar el script cómodamente.
+- Git.
+
+### 2. Clonar el repositorio
+
+```powershell
+git clone https://github.com/sesema98/Dapper-Biblioteca-DESAEA8.git
+cd Dapper-Biblioteca-DESAEA8
+```
+
+### 3. Crear la base de datos
+
+Abre SQL Server Management Studio y conéctate a:
+
+```text
+(localdb)\MSSQLLocalDB
+```
+
+Después abre `01-crear-base.sql` y selecciona **Ejecutar**. El script crea `BibliotecaDB`, las tablas, los datos de prueba y todos los procedimientos almacenados.
+
+### 4. Configurar la conexión de Windows
+
+En `Biblioteca.Web/appsettings.json`, reemplaza la cadena `BibliotecaDB` por:
+
+```json
+"BibliotecaDB": "Server=(localdb)\\MSSQLLocalDB;Database=BibliotecaDB;Integrated Security=True;TrustServerCertificate=True"
+```
+
+Si se utiliza SQL Server Express en lugar de LocalDB, el servidor normalmente será `localhost\\SQLEXPRESS`. La cadena debe ajustarse al nombre de la instancia instalada.
+
+### 5. Restaurar y ejecutar
+
+```powershell
+dotnet restore
+dotnet run --project Biblioteca.Web --launch-profile http
+```
+
+Después abre [http://localhost:5231](http://localhost:5231).
+
+## Reproducción rápida después de la primera instalación
+
+En macOS, cuando la imagen y la base ya existen:
+
+```bash
+cd ~/Documents/DEAEA8
+docker compose up -d
+dotnet run --project Biblioteca.Web --launch-profile http
+```
+
+En Windows con LocalDB, solo es necesario entrar en el repositorio y ejecutar:
+
+```powershell
+dotnet run --project Biblioteca.Web --launch-profile http
+```
+
+No es necesario volver a ejecutar el script SQL en cada inicio. Solo debe repetirse si se quiere recrear la base de datos o si se agregaron procedimientos almacenados nuevos.
 
 ## Configuración de la base de datos
 
